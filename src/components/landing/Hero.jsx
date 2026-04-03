@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, GitBranch, Lock, Github } from 'lucide-react';
+import { ArrowRight, Sparkles, GitBranch, Lock, Github, Menu, X } from 'lucide-react';
 
 const AGENTS = [
   { name: 'Ava', role: 'Architect', avatar: '/assets/avatars/ava.png', color: 'border-indigo-400/60' },
@@ -14,6 +14,14 @@ const AGENTS = [
 ];
 
 export default function Hero() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navLinks = [
+    { label: 'The Orchestra', href: '#orchestra' },
+    { label: 'Features', href: '#features' },
+    { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Get Started', href: '#pricing' },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 pt-20 pb-16">
       {/* Background Effects */}
@@ -54,15 +62,15 @@ export default function Hero() {
             <img src="/assets/logo.png" alt="CueMarshal" className="h-8" />
           </motion.div>
 
+          {/* Desktop nav */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="hidden md:flex items-center gap-8"
           >
-            <a href="#orchestra" className="text-sm text-slate-400 hover:text-white transition-colors">The Orchestra</a>
-            <a href="#features" className="text-sm text-slate-400 hover:text-white transition-colors">Features</a>
-            <a href="#how-it-works" className="text-sm text-slate-400 hover:text-white transition-colors">How It Works</a>
-            <a href="#get-started" className="text-sm text-slate-400 hover:text-white transition-colors">Get Started</a>
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="text-sm text-slate-400 hover:text-white transition-colors">{link.label}</a>
+            ))}
             <Button
               asChild
               className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white border-0"
@@ -73,7 +81,51 @@ export default function Hero() {
               </a>
             </Button>
           </motion.div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden text-slate-400 hover:text-white transition-colors p-2"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile menu dropdown */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-white/5 bg-slate-950/95 backdrop-blur-xl overflow-hidden"
+            >
+              <div className="px-4 py-4 flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-slate-300 hover:text-white transition-colors py-1"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <a
+                  href="https://github.com/cuemarshal/cuemarshal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm bg-[#1E90FF] hover:bg-[#1a7fd9] text-white px-4 py-2 rounded-lg transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <Github className="w-4 h-4" />
+                  View on GitHub
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Hero Content */}

@@ -63,7 +63,7 @@ export default function Benefits() {
 
                 {/* Security indicators */}
                 <div className="space-y-4">
-                  {['End-to-end encryption', 'SOC 2 compliant architecture', 'Zero data retention'].map((item, i) => (
+                {['Code stays on your servers', 'No telemetry or phone-home', 'Full Git audit trail'].map((item, i) => (
                     <motion.div
                       key={item}
                       initial={{ opacity: 0, x: -20 }}
