@@ -1,68 +1,44 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Github, Server, DollarSign, Scale } from 'lucide-react';
 
-const plans = [
+const highlights = [
   {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    description: 'Perfect for getting started and personal projects.',
-    features: [
-      'Up to 3 repositories',
-      'Basic Conductor orchestration',
-      '1,000 AI operations/month',
-      'Community support',
-      'Core integrations',
-    ],
-    cta: 'Get Started Free',
-    popular: false,
+    icon: Scale,
+    title: 'MIT Licensed',
+    description: 'Use it, modify it, ship it. No license fees, no seat limits, no usage caps. Forever.',
   },
   {
-    name: 'Pro',
-    price: '$49',
-    period: '/month',
-    description: 'For teams that need advanced features and scale.',
-    features: [
-      'Unlimited repositories',
-      'Advanced Conductor workflows',
-      'Unlimited AI operations',
-      'Priority support',
-      'All integrations',
-      'Custom agent training',
-      'Team collaboration',
-      'Advanced analytics',
-    ],
-    cta: 'Start Pro Trial',
-    popular: true,
+    icon: Server,
+    title: 'Self-Hosted',
+    description: 'Runs on your hardware — a laptop, a VM, or a Kubernetes cluster. Your code never leaves your network.',
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    description: 'For organizations with specific security and scale needs.',
-    features: [
-      'Everything in Pro',
-      'Dedicated infrastructure',
-      'SSO & SAML',
-      'SLA guarantee',
-      'Custom integrations',
-      'On-premise deployment',
-      'Dedicated success manager',
-    ],
-    cta: 'Contact Sales',
-    popular: false,
+    icon: DollarSign,
+    title: '~$0.50 per Issue',
+    description: 'You only pay for the LLM API calls your agents make. Typical cost: under 50 cents per issue resolved.',
   },
+];
+
+const included = [
+  '7 specialized AI agents with named identities',
+  'Conductor orchestration engine',
+  'Multi-provider LLM gateway with 3-tier fallback',
+  '5 MCP tool servers (Gitea, Conductor, System, Vector, Sonar)',
+  'Custom Gitea Act Runner with OpenCode',
+  'Mobile app (React Native Expo)',
+  'Docker Compose one-command deployment',
+  'Self-improvement loop — the system upgrades itself',
+  'Full Git audit trail for every AI action',
 ];
 
 export default function Pricing() {
   return (
     <section id="pricing" className="py-24 px-4 relative">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,75 +46,74 @@ export default function Pricing() {
           className="text-center mb-16"
         >
           <span className="text-sm font-medium text-[#1E90FF] tracking-wider uppercase mb-4 block">
-            Pricing
+            Open Source
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-              Simple, Transparent
+              No Subscription.
             </span>
             <br />
             <span className="bg-gradient-to-r from-[#1E90FF] to-[#4BA3FF] bg-clip-text text-transparent">
-              Pricing
+              Just Run It.
             </span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Start free, scale as you grow. No hidden fees, no surprises.
+            CueMarshal is free, open-source software. Clone the repo, bring your own API keys, and deploy in minutes.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {plans.map((plan, index) => (
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {highlights.map((item, index) => (
             <motion.div
-              key={plan.name}
+              key={item.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`relative ${plan.popular ? 'md:-mt-4 md:mb-4' : ''}`}
+              className="bg-slate-900/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 text-center hover:border-white/10 transition-all duration-300 group"
             >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-flex items-center gap-1 px-4 py-1 rounded-full bg-[#1E90FF] text-white text-sm font-medium">
-                    <Sparkles className="w-3 h-3" />
-                    Most Popular
-                  </span>
-                </div>
-              )}
-
-              <div className={`relative h-full rounded-2xl border ${plan.popular ? 'border-[#1E90FF]/50 bg-gradient-to-b from-[#1E90FF]/10 to-[#2D3E50]/10' : 'border-white/10 bg-slate-900/50'} backdrop-blur-xl p-8`}>
-                {plan.popular && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1E90FF]/5 to-[#2D3E50]/5 rounded-2xl" />
-                )}
-
-                <div className="relative">
-                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-
-                  <div className="flex items-baseline gap-1 mb-4">
-                    <span className="text-4xl font-bold text-white">{plan.price}</span>
-                    <span className="text-slate-400">{plan.period}</span>
-                  </div>
-
-                  <p className="text-slate-400 text-sm mb-6">{plan.description}</p>
-
-                  <Button
-                    className={`w-full mb-8 ${plan.popular ? 'bg-[#1E90FF] hover:bg-[#1a7fd9] text-white' : 'bg-white/10 hover:bg-white/20 text-white'}`}
-                  >
-                    {plan.cta}
-                  </Button>
-
-                  <ul className="space-y-3">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-sm">
-                        <Check className={`w-5 h-5 flex-shrink-0 ${plan.popular ? 'text-[#1E90FF]' : 'text-slate-500'}`} />
-                        <span className="text-slate-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1E90FF]/10 to-[#2D3E50]/10 border border-white/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <item.icon className="w-7 h-7 text-[#1E90FF]" />
               </div>
+              <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+              <p className="text-slate-400 leading-relaxed">{item.description}</p>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#1E90FF] via-[#2D3E50] to-[#1E90FF] rounded-2xl blur-lg opacity-20" />
+
+            <div className="relative bg-slate-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">
+                Everything Included
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-4 mb-10">
+                {included.map((feature) => (
+                  <div key={feature} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-[#1E90FF] flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-300 text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white h-12 px-8 text-base">
+                  <a href="https://github.com/cuemarshal/cuemarshal" target="_blank" rel="noopener noreferrer">
+                    <Github className="w-5 h-5 mr-2" />
+                    Get Started on GitHub
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

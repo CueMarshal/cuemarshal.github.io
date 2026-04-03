@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowRight, Sparkles, GitBranch, Zap } from 'lucide-react';
+import { ArrowRight, Sparkles, GitBranch, Lock, Github } from 'lucide-react';
+
+const AGENTS = [
+  { name: 'Ava', role: 'Architect', avatar: '/assets/avatars/ava.png', color: 'border-indigo-400/60' },
+  { name: 'Dave', role: 'Developer', avatar: '/assets/avatars/dave.png', color: 'border-green-400/60' },
+  { name: 'Reese', role: 'Reviewer', avatar: '/assets/avatars/reese.png', color: 'border-amber-400/60' },
+  { name: 'Tess', role: 'Tester', avatar: '/assets/avatars/tess.png', color: 'border-purple-400/60' },
+  { name: 'Devin', role: 'DevOps', avatar: '/assets/avatars/devin.png', color: 'border-cyan-400/60' },
+  { name: 'Dot', role: 'Docs', avatar: '/assets/avatars/dot.png', color: 'border-rose-400/60' },
+  { name: 'Linton', role: 'Linter', avatar: '/assets/avatars/linton.png', color: 'border-slate-400/60' },
+];
 
 export default function Hero() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setEmail('');
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 pt-20 pb-16">
       {/* Background Effects */}
@@ -24,7 +22,6 @@ export default function Hero() {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#2D3E50]/20 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-[#1E90FF]/5 to-transparent rounded-full" />
 
-        {/* Floating particles */}
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
@@ -54,11 +51,7 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2"
           >
-            <img
-              src="/assets/logo.png"
-              alt="CueMarshal"
-              className="h-8"
-            />
+            <img src="/assets/logo.png" alt="CueMarshal" className="h-8" />
           </motion.div>
 
           <motion.div
@@ -66,11 +59,18 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             className="hidden md:flex items-center gap-8"
           >
+            <a href="#orchestra" className="text-sm text-slate-400 hover:text-white transition-colors">The Orchestra</a>
             <a href="#features" className="text-sm text-slate-400 hover:text-white transition-colors">Features</a>
             <a href="#how-it-works" className="text-sm text-slate-400 hover:text-white transition-colors">How It Works</a>
-            <a href="#pricing" className="text-sm text-slate-400 hover:text-white transition-colors">Pricing</a>
-            <Button className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white border-0">
-              Get Started
+            <a href="#get-started" className="text-sm text-slate-400 hover:text-white transition-colors">Get Started</a>
+            <Button
+              asChild
+              className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white border-0"
+            >
+              <a href="https://github.com/cuemarshal/cuemarshal" target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4 mr-2" />
+                View on GitHub
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -86,7 +86,7 @@ export default function Hero() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#1E90FF]/10 to-[#2D3E50]/20 border border-[#1E90FF]/30 text-sm text-[#1E90FF]">
             <Sparkles className="w-4 h-4" />
-            Now in Public Beta
+            Open Source · MIT Licensed · Self-Hosted
           </span>
         </motion.div>
 
@@ -97,11 +97,11 @@ export default function Hero() {
           className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
         >
           <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-            Orchestrate Your SDLC
+            From Issue to Reviewed PR
           </span>
           <br />
           <span className="bg-gradient-to-r from-[#1E90FF] via-[#4BA3FF] to-[#1E90FF] bg-clip-text text-transparent">
-            from Idea to Completion
+            Without Leaving Git
           </span>
         </motion.h1>
 
@@ -111,8 +111,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed"
         >
-          Self-hosted AI platform with Gitea as your single source of truth.
-          Let the <span className="text-[#1E90FF] font-medium">Conductor</span> guide specialized agents through every dev task.
+          CueMarshal is self-hosted AI DevOps: <span className="text-white font-medium">GitHub Actions + an AI engineering orchestra</span> on
+          your own infrastructure. Open an issue and 7 specialized agents plan, build,
+          review, test, and document the change. You review and merge.
         </motion.p>
 
         <motion.div
@@ -121,119 +122,94 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <form onSubmit={handleSubmit} className="flex gap-2 w-full sm:w-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full sm:w-72 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-[#1E90FF] h-12"
-            />
-            <Button
-              type="submit"
-              className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white h-12 px-6 whitespace-nowrap"
-            >
-              {submitted ? 'Subscribed!' : 'Get Started Free'}
+          <Button
+            asChild
+            className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white h-12 px-8"
+          >
+            <a href="https://github.com/cuemarshal/cuemarshal" target="_blank" rel="noopener noreferrer">
+              <Github className="w-5 h-5 mr-2" />
+              Get Started on GitHub
               <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </form>
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="border-white/20 text-white hover:bg-white/10 h-12 px-8"
+          >
+            <a href="#how-it-works">See How It Works</a>
+          </Button>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex items-center justify-center gap-6 text-sm text-slate-500"
+          className="flex items-center justify-center gap-6 text-sm text-slate-500 mb-16"
         >
           <span className="flex items-center gap-2">
             <GitBranch className="w-4 h-4 text-[#1E90FF]" />
-            Git-centric
+            Git-native workflow
           </span>
           <span className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[#2D3E50]" />
-            100% Private
+            <Lock className="w-4 h-4 text-[#1E90FF]" />
+            Your servers, your data
           </span>
           <span className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#1E90FF]" />
-            AI-Powered
+            ~$0.50 per issue
           </span>
         </motion.div>
 
-        {/* Hero Visual */}
+        {/* Hero Visual — Agent Orchestra around Conductor */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 relative"
+          className="relative"
         >
           <div className="relative mx-auto max-w-4xl">
-            {/* Glowing border effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-[#1E90FF] via-[#2D3E50] to-[#1E90FF] rounded-2xl blur-lg opacity-30" />
 
-            {/* Main visual container */}
-            <div className="relative bg-slate-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 overflow-hidden">
-              {/* Conductor visualization */}
-              <div className="flex items-center justify-center gap-8 py-8">
-                {/* Left agents */}
-                <div className="flex flex-col gap-4">
-                  {['Code Review', 'Bug Fix', 'Testing'].map((task, i) => (
-                    <motion.div
-                      key={task}
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.8 + i * 0.1 }}
-                      className="px-4 py-2 bg-[#1E90FF]/10 border border-[#1E90FF]/30 rounded-lg text-sm text-[#1E90FF]"
-                    >
-                      {task}
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Conductor */}
+            <div className="relative bg-slate-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12 overflow-hidden">
+              <div className="flex flex-col items-center gap-8">
+                {/* Conductor in center */}
                 <motion.div
-                  animate={{
-                    scale: [1, 1.05, 1],
-                    rotate: [0, 5, -5, 0]
-                  }}
+                  animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 4, repeat: Infinity }}
                   className="relative"
                 >
-                  <div className="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-xl shadow-[#1E90FF]/25">
-                    <img
-                      src="/assets/icon.png"
-                      alt="CueMarshal"
-                      className="w-20 h-20 object-contain"
-                    />
+                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white flex items-center justify-center shadow-xl shadow-[#1E90FF]/25 overflow-hidden">
+                    <img src="/assets/avatars/marshal.png" alt="Marshal — Conductor" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute -inset-4 bg-gradient-to-r from-[#1E90FF] to-[#2D3E50] rounded-full blur-xl opacity-20 animate-pulse" />
+                  <div className="absolute -inset-3 bg-gradient-to-r from-[#1E90FF] to-[#2D3E50] rounded-full blur-xl opacity-20 animate-pulse" />
                 </motion.div>
+                <div className="text-center -mt-2">
+                  <p className="text-white font-semibold text-lg">Marshal</p>
+                  <p className="text-slate-500 text-sm">The Conductor</p>
+                </div>
 
-                {/* Right agents */}
-                <div className="flex flex-col gap-4">
-                  {['Deploy', 'Monitor', 'Document'].map((task, i) => (
+                {/* Agents in a row */}
+                <div className="grid grid-cols-4 md:grid-cols-7 gap-4 md:gap-6 w-full max-w-2xl">
+                  {AGENTS.map((agent, i) => (
                     <motion.div
-                      key={task}
-                      initial={{ x: 50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.8 + i * 0.1 }}
-                      className="px-4 py-2 bg-[#2D3E50]/30 border border-[#2D3E50]/50 rounded-lg text-sm text-slate-300"
+                      key={agent.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 + i * 0.08 }}
+                      className="flex flex-col items-center gap-2"
                     >
-                      {task}
+                      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full border-2 ${agent.color} overflow-hidden bg-slate-800 shadow-lg`}>
+                        <img src={agent.avatar} alt={agent.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-white text-xs font-medium">{agent.name}</p>
+                        <p className="text-slate-500 text-[10px]">{agent.role}</p>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
-
-              {/* Flow lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: -1 }}>
-                <defs>
-                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
-                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="#ec4899" stopOpacity="0.3" />
-                  </linearGradient>
-                </defs>
-              </svg>
             </div>
           </div>
         </motion.div>

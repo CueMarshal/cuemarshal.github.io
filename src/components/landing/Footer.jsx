@@ -1,61 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
-  ArrowRight,
   Github,
   Twitter,
-  Mail,
   FileText,
-  Shield
+  ArrowRight
 } from 'lucide-react';
 
 const footerLinks = {
   Product: [
     { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
+    { name: 'The Orchestra', href: '#orchestra' },
     { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Roadmap', href: '#' },
+    { name: 'Open Source', href: '#pricing' },
   ],
   Resources: [
-    { name: 'Documentation', href: '#', icon: FileText },
-    { name: 'GitHub', href: '#', icon: Github },
-    { name: 'API Reference', href: '#' },
-    { name: 'Changelog', href: '#' },
+    { name: 'GitHub', href: 'https://github.com/cuemarshal/cuemarshal', icon: Github },
+    { name: 'Documentation', href: 'https://github.com/cuemarshal/cuemarshal/tree/main/docs', icon: FileText },
+    { name: 'README', href: 'https://github.com/cuemarshal/cuemarshal#readme' },
+    { name: 'Issues', href: 'https://github.com/cuemarshal/cuemarshal/issues' },
   ],
-  Company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Contact', href: '#' },
-  ],
-  Legal: [
-    { name: 'Privacy Policy', href: '#', icon: Shield },
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Security', href: '#' },
+  Community: [
+    { name: 'Twitter / X', href: 'https://twitter.com/cuemarshal', icon: Twitter },
+    { name: 'Discussions', href: 'https://github.com/cuemarshal/cuemarshal/discussions' },
+    { name: 'Contributing', href: 'https://github.com/cuemarshal/cuemarshal/blob/main/CONTRIBUTING.md' },
   ],
 };
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail('');
-    }
-  };
-
   return (
     <footer className="relative pt-24 pb-12 px-4 border-t border-white/5">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,37 +46,28 @@ export default function Footer() {
               <div className="relative bg-slate-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12">
                 <h2 className="text-2xl md:text-4xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                    Ready to Orchestrate Your Development?
+                    Ready to Meet the Orchestra?
                   </span>
                 </h2>
                 <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-                  Join thousands of developers who are already using CueMarshal to streamline their workflow.
+                  Clone the repo, add your API keys, and run <code className="text-[#4BA3FF] bg-slate-800/50 px-2 py-0.5 rounded text-sm">quick-start.sh</code>. That's it.
                 </p>
 
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-[#1E90FF] h-12"
-                  />
-                  <Button
-                    type="submit"
-                    className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white h-12 px-6 whitespace-nowrap"
-                  >
-                    {subscribed ? 'Subscribed!' : 'Sign Up Now'}
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button asChild className="bg-[#1E90FF] hover:bg-[#1a7fd9] text-white h-12 px-8">
+                    <a href="https://github.com/cuemarshal/cuemarshal" target="_blank" rel="noopener noreferrer">
+                      <Github className="w-5 h-5 mr-2" />
+                      Star on GitHub
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
                   </Button>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Footer Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <img
@@ -108,24 +77,19 @@ export default function Footer() {
               />
             </div>
             <p className="text-slate-400 text-sm mb-6">
-              Orchestrate your SDLC from idea to completion with AI-powered automation.
+              From issue to reviewed PR without leaving Git. An open-source AI dev team that works through your existing workflow.
             </p>
 
-            {/* Social Links */}
             <div className="flex gap-3">
               <a href="https://twitter.com/cuemarshal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-all">
                 <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-all">
+              <a href="https://github.com/cuemarshal/cuemarshal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-all">
                 <Github className="w-4 h-4" />
-              </a>
-              <a href="mailto:hello@cuemarshal.com" className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 transition-all">
-                <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="text-white font-semibold mb-4">{category}</h4>
@@ -134,6 +98,8 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="text-slate-400 text-sm hover:text-white transition-colors flex items-center gap-2"
                     >
                       {link.icon && <link.icon className="w-4 h-4" />}
@@ -146,15 +112,12 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm">
-            © 2026 CueMarshal. All rights reserved.
+            © {new Date().getFullYear()} CueMarshal. MIT License.
           </p>
           <div className="flex items-center gap-6 text-sm text-slate-500">
-            <span>cuemarshal.com</span>
-            <span>•</span>
-            <span>Made with ♥ for developers</span>
+            <span>Open Source · Self-Hosted · Git-Native</span>
           </div>
         </div>
       </div>

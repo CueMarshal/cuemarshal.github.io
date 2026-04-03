@@ -5,50 +5,50 @@ import {
   Bot,
   Route,
   Server,
-  Brain,
+  RefreshCw,
   Container
 } from 'lucide-react';
 
 const features = [
   {
     icon: Workflow,
-    title: 'Conductor',
-    description: 'The secret sauce – orchestrates all workflows seamlessly, ensuring every agent knows its cue.',
+    title: 'Conductor Orchestration',
+    description: 'Marshal receives webhooks, decomposes tasks, selects the right agents, and routes work through the full SDLC pipeline.',
     gradient: 'from-[#1E90FF] to-[#4BA3FF]',
     bgGradient: 'from-[#1E90FF]/10 to-[#4BA3FF]/10',
   },
   {
     icon: Bot,
-    title: 'OpenCode Agents',
-    description: 'Specialized AI agents execute SDLC tasks like code reviews, bug fixes, and deployments with precision.',
+    title: '7 Specialized Agents',
+    description: 'Ava architects, Dave builds, Reese reviews, Tess tests, Devin deploys, Dot documents, Linton enforces quality. Each with distinct expertise.',
     gradient: 'from-[#2D3E50] to-[#4A5D6F]',
     bgGradient: 'from-[#2D3E50]/20 to-[#4A5D6F]/20',
   },
   {
     icon: Route,
-    title: 'LiteLLM Routing',
-    description: 'Intelligent LLM fallback for reliable AI performance. Never miss a beat with smart model switching.',
+    title: 'Multi-Provider LLM Gateway',
+    description: 'LiteLLM routes to the optimal model per task with automatic 3-provider fallback: Groq → Gemini → Azure. Never miss a beat.',
     gradient: 'from-[#1E90FF] to-[#2D3E50]',
     bgGradient: 'from-[#1E90FF]/10 to-[#2D3E50]/10',
   },
   {
     icon: Server,
-    title: 'MCP Servers',
-    description: 'Unified tool access for agents and humans. One interface to rule them all.',
+    title: 'MCP Tool Servers',
+    description: 'Unified tool access through Model Context Protocol. Gitea operations, task coordination, and system health — one typed interface.',
     gradient: 'from-emerald-500 to-teal-500',
     bgGradient: 'from-emerald-500/10 to-teal-500/10',
   },
   {
-    icon: Brain,
-    title: 'Zep Memory',
-    description: 'Persistent, semantic memory for context-aware operations. Your agents remember everything.',
+    icon: RefreshCw,
+    title: 'Self-Improvement Loop',
+    description: 'CueMarshal scans its own codebase, creates issues, and ships fixes through the same Git Flow pipeline. The system improves itself.',
     gradient: 'from-[#4BA3FF] to-[#1E90FF]',
     bgGradient: 'from-[#4BA3FF]/10 to-[#1E90FF]/10',
   },
   {
     icon: Container,
-    title: 'Docker Integration',
-    description: 'Runs entirely in containers for easy self-hosting. Deploy anywhere with a single command.',
+    title: 'One-Command Deployment',
+    description: 'Runs entirely in Docker containers. Clone, run quick-start.sh, and all 11 services are up. Deploy anywhere in minutes.',
     gradient: 'from-[#2D3E50] to-[#1E90FF]',
     bgGradient: 'from-[#2D3E50]/10 to-[#1E90FF]/10',
   },
@@ -57,7 +57,6 @@ const features = [
 export default function Features() {
   return (
     <section id="features" className="py-24 px-4 relative">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -76,11 +75,11 @@ export default function Features() {
             </span>
             <br />
             <span className="bg-gradient-to-r from-[#1E90FF] to-[#4BA3FF] bg-clip-text text-transparent">
-              Orchestrate Development
+              Ship with Confidence
             </span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            A complete suite of tools designed to transform your development workflow into a harmonious symphony of automation.
+            A complete AI DevOps platform built on Git-native principles — every action is a branch, commit, or PR.
           </p>
         </motion.div>
 
